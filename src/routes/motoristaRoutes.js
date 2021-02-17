@@ -1,10 +1,12 @@
 const express = require('express');
 
 const router = express.Router();
-const controller = require('../controllers/automovelController');
+const controller = require('../controllers/motoristaController');
 
 router.post('/', controller.post);
-router.put('/:placa', controller.put);
-router.delete('/', controller.delete);
+router.put('/:id', controller.put);
+router.delete('/:id', controller.delete);
+router.get('/', controller.get);
+router.get('/:id', controller.getById);
 
 module.exports = router;

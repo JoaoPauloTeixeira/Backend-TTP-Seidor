@@ -9,12 +9,12 @@ const router = express.Router();  //Método de rotas (URL)
 
 const index = require('./routes/index'); //Carrega rotas
 const automovelRoutes = require('./routes/automovelRoutes');
-const motoristaRoutes = require('./routes/automovelRoutes');
+const motoristaRoutes = require('./routes/motoristaRoutes');
 
 app.use(bodyParser.json());//Converte conteudo para JSON
 
 app.use('/', index);
-app.use('/automovel', automovelRoutes);
 app.use('/motorista', motoristaRoutes);
+app.use('/automovel', automovelRoutes);
 
 module.exports = app;
