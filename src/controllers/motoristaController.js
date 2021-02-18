@@ -17,12 +17,17 @@ exports.getById = async (req, res, next) => {
 }
 
 exports.post = async (req, res, next) => {
-    let { nome, id } = req.body;
+    let { nome, cpf, id } = req.body;
     const validaNome = validaTipo(nome, 'string');
+    const validaCpf = validaTipo(cpf, 'number');
 
     id = getRandomInt(1, 100);
 
     const index = motoristasCadastrados.findIndex(element => element.id === id); //Se index diferente de -1 existe elemento no array
+
+    const existeCpfCadastrado = motoristasCadastrados.find(element => element.cpf === cpf);
+
+    if(existeCpfCadastrado) {res.status(400).send("CPF já cadastrado")};
 
     index !== -1 ? id * 2 : id;
 
@@ -31,10 +36,11 @@ exports.post = async (req, res, next) => {
         return;
       }
       
-    if (nome) {
+    if (nome && cpf) {
         const motorista = {
             id,
             nome: nome.toUpperCase(),
+            cpf: cpf
         };
 
         motoristasCadastrados.push(motorista);
@@ -105,3 +111,5 @@ function validaTipo(value, tipo) {
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+exports.listaMotoristas = motoristasCadastrados;

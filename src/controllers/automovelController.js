@@ -1,3 +1,5 @@
+const express = require('express');
+
 let automoveisCadastrados = [];
 
 exports.get = async (req, res, next) => {
@@ -129,3 +131,5 @@ function validaTipo(value, tipo) {
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+exports.listaAutomoveis = automoveisCadastrados;
