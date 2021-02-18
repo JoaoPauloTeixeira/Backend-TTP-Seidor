@@ -4,7 +4,7 @@ const router = express.Router();
 const controller = require('../controllers/motoristaController');
 
 router.post('/', controller.post);
-router.put('/:id', controller.put);
+router.put('/:cpf', controller.put);
 router.delete('/:cpf', controller.delete);
 router.get('/', controller.get);
 router.get('/:id', controller.getById);

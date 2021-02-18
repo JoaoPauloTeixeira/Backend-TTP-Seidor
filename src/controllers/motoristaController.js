@@ -68,10 +68,10 @@ exports.post = async (req, res, next) => {
 
 exports.put = async (req, res, next) => {
 
-    const id = Number(req.params.id);
+    const cpf = (req.params.cpf);
     const nome = req.body.nome;
 
-    const index = motoristasCadastrados.findIndex(element => element.id === id);
+    const index = motoristasCadastrados.findIndex(element => element.cpf === cpf);
 
     if (index > -1 && nome) {
         req.body.nome ? motoristasCadastrados[index].nome = nome : null;
