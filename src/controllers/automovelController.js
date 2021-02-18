@@ -79,14 +79,14 @@ exports.put = async (req, res, next) => {
     const cor = req.body.cor;
     const marca = req.body.marca;
 
-    const index = await buscaIndex(placa);
+    const index = automoveisCadastrados.findIndex(element => element.placa === placa);
 
     req.body.cor ? automoveisCadastrados[index].cor = cor : null;
     req.body.marca ? automoveisCadastrados[index].marca = marca : null;
 
     if (index > -1 && (cor || marca)) {
         res.status(200).send(
-            `Automovel atualizado com sucesso. ${automoveisCadastrados[index]}`
+            `Automovel atualizado com sucesso.`
         )
     } else {
         res.status(400).send("Erro ao atualizar automovel.");
