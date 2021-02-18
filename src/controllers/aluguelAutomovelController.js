@@ -10,6 +10,18 @@ exports.get = async (req, res, next) => {
     res.status(200).send(registros);
 }
 
+exports.getByCpfMotorista = async (req, res, next) => {
+    const cpf = req.params.cpf;
+
+    const registro = registros.find(element => element.cpf === cpf);
+
+    if(registro) {
+        res.status(200).send(registro);
+    } else {
+        res.status(400).send("Motorista não encontrado com esse ID.")
+    }
+}
+
 exports.post = async (req, res, next) => {
     const { placa, cpf, motivo } = req.body;
 
@@ -54,9 +66,25 @@ exports.put = async (req, res, next) => {
 
         Object.assign(registro, finalizaRegistro);
 
-        res.status(200).send("Registro finalizado com sucesso");
+        res.status(200).send(`Registro finalizado com sucesso.`);
     } else {
         res.status(200).send("Registro não está em uso!")
+    }
+}
+
+exports.delete = async (req, res, next) => {
+    const cpf =  req.params.cpf;
+
+    const index = registros.findIndex(element => element.cpf === cpf);
+
+    if (index > -1) {
+        registros.splice(index, 1);
+
+        res.status(200).send(
+            `Registro removido com sucesso!`
+        )
+    } else {
+        res.status(400).send(`Nenhum registro encontrado com o CPF ${cpf}`);
     }
 }
 

@@ -16,10 +16,22 @@ exports.getById = async (req, res, next) => {
     }
 }
 
+exports.getByCpf = async (req, res, next) => {
+    const cpf = req.params.cpf;
+
+    const motorista = motoristasCadastrados.find(element => element.cpf === cpf);
+
+    if(motorista) {
+        res.status(200).send(motorista);
+    } else {
+        res.status(400).send("Motorista não encontrado com esse ID.")
+    }
+}
+
 exports.post = async (req, res, next) => {
     let { nome, cpf, id } = req.body;
     const validaNome = validaTipo(nome, 'string');
-    const validaCpf = validaTipo(cpf, 'number');
+    const validaCpf = validaTipo(cpf, 'string');
 
     id = getRandomInt(1, 100);
 
@@ -27,7 +39,7 @@ exports.post = async (req, res, next) => {
 
     const existeCpfCadastrado = motoristasCadastrados.find(element => element.cpf === cpf);
 
-    if(existeCpfCadastrado) {res.status(400).send("CPF já cadastrado")};
+    if(existeCpfCadastrado) {return res.status(400).send("CPF já cadastrado")};
 
     index !== -1 ? id * 2 : id;
 
@@ -74,18 +86,18 @@ exports.put = async (req, res, next) => {
 }
 
 exports.delete = async (req, res, next) => {
-    const id = Number(req.params.id);
+    const cpf = (req.params.cpf);
 
-    const index = motoristasCadastrados.findIndex(element => element.id === id);
+    const index = motoristasCadastrados.findIndex(element => element.cpf === cpf);
 
     if (index > -1) {
         motoristasCadastrados.splice(index, 1);
 
         res.status(200).send(
-            `Automovel removido com sucesso!`
+            `Motorista removido com sucesso!`
         )
     } else {
-        res.status(400).send(`Nenhum automovel encontrado com a placa ${req.body.placa}`);
+        res.status(400).send(`Nenhum Motorista encontrado com CPF ${cpf}`);
     }
 }
 

@@ -5,8 +5,9 @@ const controller = require('../controllers/motoristaController');
 
 router.post('/', controller.post);
 router.put('/:id', controller.put);
-router.delete('/:id', controller.delete);
+router.delete('/:cpf', controller.delete);
 router.get('/', controller.get);
 router.get('/:id', controller.getById);
+router.get('/pesquisaCpf/:cpf', controller.getByCpf);
 
 module.exports = router;
